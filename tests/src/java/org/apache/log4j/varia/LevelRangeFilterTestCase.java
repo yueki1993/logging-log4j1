@@ -126,6 +126,19 @@ public class LevelRangeFilterTestCase extends TestCase {
     assertResult(Filter.ACCEPT, sut, Level.OFF);
   }
 
+  public void testLevelMinALL() {
+    LevelRangeFilter sut = new LevelRangeFilter();
+    sut.setLevelMin(Level.ALL);
+
+    assertResult(Filter.NEUTRAL, sut, Level.ALL);
+    assertResult(Filter.NEUTRAL, sut, Level.DEBUG);
+    assertResult(Filter.NEUTRAL, sut, Level.INFO);
+    assertResult(Filter.NEUTRAL, sut, Level.WARN);
+    assertResult(Filter.NEUTRAL, sut, Level.ERROR);
+    assertResult(Filter.NEUTRAL, sut, Level.FATAL);
+    assertResult(Filter.NEUTRAL, sut, Level.OFF);
+  }
+
   private static void assertResult(int expected, LevelRangeFilter filter, Priority level) {
     assertEquals(expected,
         filter.decide(new LoggingEvent(null, Logger.getRootLogger(), level, null, null)));
